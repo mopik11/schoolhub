@@ -11,7 +11,7 @@ export const generateAIResponse = async (prompt: string) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama3.2',
+        model: 'gemma3:4b',
         prompt: prompt,
         stream: false // Pro začátek vypneme streamování pro jednodušší kód
       })

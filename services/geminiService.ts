@@ -1,7 +1,7 @@
 // services/geminiService.ts
 
 // SEM vlož adresu z cloudflared tunelu na tvém Raspberry Pi
-const TUNNEL_URL = "https://tvuj-nahodny-nazev.trycloudflare.com"; 
+const TUNNEL_URL = "https://message-organisms-pierce-construction.trycloudflare.com"; 
 
 // Společná pomocná funkce pro volání Ollamy na RPi
 const callOllama = async (prompt: string) => {

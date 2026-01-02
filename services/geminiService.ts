@@ -1,7 +1,7 @@
 // services/geminiService.ts
 
 // Adresa tvého tunelu z tvého screenshotu
-const TUNNEL_URL = "https://under-consolidation-carried-waiver.trycloudflare.com";
+const TUNNEL_URL = "https://water-aerial-offline-ethical.trycloudflare.com";
 
 const callOllama = async (prompt: string) => {
   const response = await fetch(`${TUNNEL_URL}/api/generate`, {

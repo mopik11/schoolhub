@@ -1,7 +1,7 @@
 // services/aiService.ts
 
 // Tady vlož tu adresu, kterou ti vypsal cloudflared tunnel
-const TUNNEL_URL = "https://tvuj-nahodny-nazev.trycloudflare.com"; 
+const TUNNEL_URL = "https://message-organisms-pierce-construction.trycloudflare.com"; 
 
 export const generateAIResponse = async (prompt: string) => {
   try {

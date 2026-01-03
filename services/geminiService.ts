@@ -1,7 +1,7 @@
 // services/geminiService.ts
 
 // Tuto URL adresu vždy zkontroluj v terminálu Raspberry Pi (cloudflared)
-const TUNNEL_URL = "https://wma-alcohol-eyes-weekly.trycloudflare.com"; 
+const TUNNEL_URL = "https://xml-immigration-department-laundry.trycloudflare.com"; 
 
 /**
  * Hlavní funkce pro komunikaci s AI na tvém Raspberry Pi

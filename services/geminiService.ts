@@ -8,7 +8,7 @@ const callOllama = async (prompt: string) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'llama3.2', 
+      model: 'gemma3:4b', 
       prompt: prompt,
       stream: false
     })

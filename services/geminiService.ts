@@ -10,7 +10,7 @@ const callOllama = async (prompt: string) => {
     body: JSON.stringify({
       model: 'gemma3:4b', 
       prompt: prompt,
-      stream: false
+      stream: true
     })
   });
 

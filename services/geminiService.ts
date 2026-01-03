@@ -77,3 +77,19 @@ export const generatePodcastAudio = async (text: string) => {
   console.log("Generuji audio pro:", text);
   return "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; 
 };
+
+export const verifyUserOnRPi = async (name: string, pass: string) => {
+  try {
+    const response = await fetch(`${TUNNEL_URL}/api/auth`, { // Nový endpoint na malině
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, pass })
+    });
+
+    const data = await response.json();
+    return data.success; // Malina vrátí true nebo false
+  } catch (error) {
+    console.error("Chyba při ověřování na RPi:", error);
+    return false;
+  }
+};

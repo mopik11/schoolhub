@@ -57,7 +57,7 @@ export const generateScriptFromMaterial = async (material: any) => {
   try {
     // Zkrátíme vstup na 2000 znaků, aby malina nehodila chybu 500
     const materialSnippet = JSON.stringify(material).substring(0, 2000);
-    const prompt = `Jsi studijní asistent. Vytvoř krátký scénář podcastu z tohoto textu: ${materialSnippet}`;
+    const prompt = `Jsi studijní asistent. Vytvoř krátký scénář podcastu z tohoto textu (max 3 odstavce): ${materialSnippet}`;
     
     const result = await sendMessageToGemini(prompt);
     

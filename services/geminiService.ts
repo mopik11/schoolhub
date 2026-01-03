@@ -1,46 +1,75 @@
 // services/geminiService.ts
 
-// VŽDY ZKONTROLUJ TU URL PODLE TERMINÁLU!
+// DŮLEŽITÉ: Tuto URL vždy aktualizuj podle toho, co ti vypíše cloudflared v terminálu!
 const TUNNEL_URL = "https://wma-alcohol-eyes-weekly.trycloudflare.com"; 
 
+/**
+ * Hlavní funkce pro chat (používá gemma3:4b nebo llama3.2)
+ */
 export const sendMessageToGemini = async (prompt: string, useSearch: boolean = false) => {
   try {
+    // Pokud je useSearch zapnuto, můžeme v budoucnu změnit model na llama3.2
+    const modelName = useSearch ? 'llama3.2' : 'gemma3:4b';
+
     const response = await fetch(`${TUNNEL_URL}/api/generate`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-        model: 'gemma3:4b',
+        model: modelName,
         prompt: prompt,
         stream: false
       })
     });
 
-    if (!response.ok) throw new Error(`Chyba: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`Server vrátil chybu: ${response.status}`);
+    }
 
     const data = await response.json();
-    console.log('Data z Ollamy:', data); 
+    console.log('Kompletní data z Ollamy:', data); 
 
-    // Úprava pro tvůj Chatbot.tsx: vracíme objekt s klíčem "text"
+    // Vracíme objekt se strukturou, kterou tvůj Chatbot.tsx vyžaduje
     return {
-      text: data.response || "AI vrátila prázdnou odpověď.",
-      sources: [] // Ollama zatím zdroje nepodporuje, tak vracíme prázdné pole
+      text: data.response || "AI neodpověděla.",
+      sources: [] 
     };
     
   } catch (error) {
     console.error('Chyba při volání AI:', error);
     return {
-      text: "Omlouvám se, spojení s Raspberry Pi selhalo. Zkontroluj tunel a Ollamu.",
+      text: "Chyba připojení k Raspberry Pi. Zkontroluj TUNNEL_URL a OLLAMA_ORIGINS.",
       sources: []
     };
   }
 };
 
-// Funkce pro build na GitHubu
+/**
+ * OPRAVA PRO PODCASTY: Tato funkce generuje scénář z nahraných materiálů.
+ * Vrací čistý string, aby neházelo chybu .trim()
+ */
 export const generateScriptFromMaterial = async (material: any) => {
-  const prompt = `Vytvoř studijní scénář: ${JSON.stringify(material)}`;
-  return await sendMessageToGemini(prompt);
+  try {
+    const prompt = `Jsi studijní asistent. Vytvoř strukturovaný scénář pro podcast z těchto materiálů: ${JSON.stringify(material)}`;
+    
+    // Použijeme naši hlavní funkci
+    const result = await sendMessageToGemini(prompt);
+    
+    // Podcasty v tvém kódu očekávají přímo text, ne objekt
+    return result.text;
+
+  } catch (error) {
+    console.error("Chyba v generateScriptFromMaterial:", error);
+    return "Nepodařilo se vygenerovat scénář.";
+  }
 };
 
+/**
+ * Funkce pro generování audia (simulace pro úspěšný build)
+ */
 export const generatePodcastAudio = async (text: string) => {
-  return ""; 
+  console.log("Generování audia pro:", text);
+  // Vrátíme ukázkovou MP3, aby se přehrávač v aplikaci nezasekl
+  return "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"; 
 };

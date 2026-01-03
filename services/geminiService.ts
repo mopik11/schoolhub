@@ -1,15 +1,13 @@
 // services/geminiService.ts
 
-// VŽDY ZKONTROLUJ, ZDA TATO URL ODPOVÍDÁ TVÉMU TUNELU V TERMINÁLU!
+// VŽDY ZKONTROLUJ TU URL PODLE TERMINÁLU!
 const TUNNEL_URL = "https://clients-update-scientists-mouth.trycloudflare.com"; 
 
-export const sendMessageToGemini = async (prompt: string) => {
+export const sendMessageToGemini = async (prompt: string, useSearch: boolean = false) => {
   try {
     const response = await fetch(`${TUNNEL_URL}/api/generate`, {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'gemma3:4b',
         prompt: prompt,
@@ -17,38 +15,32 @@ export const sendMessageToGemini = async (prompt: string) => {
       })
     });
 
-    if (!response.ok) {
-      throw new Error(`Raspberry Pi vrátilo chybu: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`Chyba: ${response.status}`);
 
     const data = await response.json();
-    
-    // Logování pro tvou kontrolu v konzoli (F12)
     console.log('Data z Ollamy:', data); 
-    
-    // Klíčové pro zobrazení v chatu: vracíme přímo textový řetězec
-    return data.response; 
+
+    // Úprava pro tvůj Chatbot.tsx: vracíme objekt s klíčem "text"
+    return {
+      text: data.response || "AI vrátila prázdnou odpověď.",
+      sources: [] // Ollama zatím zdroje nepodporuje, tak vracíme prázdné pole
+    };
     
   } catch (error) {
     console.error('Chyba při volání AI:', error);
-    return "Omlouvám se, spojení s Raspberry Pi selhalo. Zkontroluj, zda běží tunel a Ollama.";
+    return {
+      text: "Omlouvám se, spojení s Raspberry Pi selhalo. Zkontroluj tunel a Ollamu.",
+      sources: []
+    };
   }
 };
 
-/**
- * Funkce pro generování scénáře z materiálů
- * Nutné pro úspěšný build na GitHubu
- */
+// Funkce pro build na GitHubu
 export const generateScriptFromMaterial = async (material: any) => {
-  const prompt = `Jsi studijní asistent. Vytvoř strukturovaný studijní scénář z tohoto materiálu: ${JSON.stringify(material)}`;
+  const prompt = `Vytvoř studijní scénář: ${JSON.stringify(material)}`;
   return await sendMessageToGemini(prompt);
 };
 
-/**
- * Funkce pro simulaci generování audia
- * Nutné pro úspěšný build na GitHubu
- */
 export const generatePodcastAudio = async (text: string) => {
-  console.log("Generování audia pro:", text);
   return ""; 
 };

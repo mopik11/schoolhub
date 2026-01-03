@@ -35,7 +35,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Jan Novák"
+                placeholder="např. Matěj Pácl"
                 className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
               />
             </div>
@@ -66,7 +66,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           </div>
         </div>
         <div className="bg-slate-50 p-4 text-center border-t border-slate-100">
-            <p className="text-xs text-slate-400">Poháněno Google Gemini</p>
+            <p className="text-xs text-slate-400">Poháněno Google Gemma3</p>
         </div>
       </div>
     </div>

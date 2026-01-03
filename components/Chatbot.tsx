@@ -147,7 +147,7 @@ const Chatbot: React.FC = () => {
               {useSearch ? 'Web Search Zapnuto' : 'Web Search Vypnuto'}
             </button>
             <span className="text-xs text-slate-400">
-              {useSearch ? 'Gemini 3 Flash' : 'Gemini 3 Pro'}
+              {useSearch ? 'gemma3:270m' : 'gemma3:4b'}
             </span>
           </div>
 
@@ -156,7 +156,7 @@ const Chatbot: React.FC = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyPress}
-              placeholder={useSearch ? "Zeptej se na cokoliv... (Web Search Aktivní)" : "Zeptej se na úkoly, poznámky nebo rozvrh..."}
+              placeholder={useSearch ? "rychlejší model" : "Zeptej se na úkoly, poznámky nebo rozvrh..."}
               className="flex-1 p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none h-12 bg-slate-50 text-sm transition-all"
             />
             <button

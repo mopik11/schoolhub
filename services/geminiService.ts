@@ -37,7 +37,7 @@ export const sendMessageToGemini = async (prompt: string, useSearch: boolean = f
     // Vracíme objekt, který Chatbot.tsx očekává
     return {
       text: data.response || "AI neodpověděla.",
-      sources: useSearch ? [{title: "Vyhledávání přes Llama 3.2", uri: "#"}] : []
+      sources: useSearch ? [{title: "Odpověď rychlejším modelem gemma3:270m.", uri: "#"}] : []
     };
     
   } catch (error) {

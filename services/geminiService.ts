@@ -1,7 +1,7 @@
 // services/geminiService.ts
 
 // VŽDY ZKONTROLUJ TU URL PODLE TERMINÁLU!
-const TUNNEL_URL = "https://clients-update-scientists-mouth.trycloudflare.com"; 
+const TUNNEL_URL = "https://wma-alcohol-eyes-weekly.trycloudflare.com"; 
 
 export const sendMessageToGemini = async (prompt: string, useSearch: boolean = false) => {
   try {

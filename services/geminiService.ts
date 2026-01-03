@@ -11,7 +11,7 @@ export const sendMessageToGemini = async (prompt: string, useSearch: boolean = f
   try {
     // VÝMĚNA MODELŮ: Pokud uživatel zapne Web Search, použijeme chytřejší Llama 3.2
     // Jinak zůstáváme u lehčí Gemma 3
-    const modelName = useSearch ? 'llama3.2' : 'gemma3:4b';
+    const modelName = useSearch ? 'gemma3:270m' : 'gemma3:4b';
     
     console.log(`Používám model: ${modelName} (Search: ${useSearch})`);
 
